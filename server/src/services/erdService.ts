@@ -42,68 +42,6 @@ const app = workflow.compile({ checkpointer: memory });
 
 let config;
 
-// const ERD_SYSTEM_PROMPT = `
-// You are a database design expert. Your task is to generate Entity Relationship Diagrams (ERDs) in XML format based on user requirements.
-
-// When the user describes a system or application, you should:
-// 1. Identify all entities
-// 2. Define attributes for each entity including data types
-// 3. Establish relationships between entities with proper cardinality
-// 4. If applicable, generate a complete XML diagram using this sample format(<ERD>
-//   <tables>
-//     <table name="Event">
-//       <column name="EventID" type="integer" PK="true"/>
-//       <column name="Name" type="string"/>
-//       <column name="Date" type="date"/>
-//       <column name="Time" type="time"/>
-//       <column name="VenueID" type="integer" FK="true"/>
-//     </table>
-
-//     <table name="Customer">
-//       <column name="CustomerID" type="integer" PK="true"/>
-//       <column name="Name" type="string"/>
-//       <column name="ContactInfo" type="string"/>
-//       <column name="PaymentDetails" type="string"/>
-//     </table>
-
-//     <table name="Venue">
-//       <column name="VenueID" type="integer" PK="true"/>
-//       <column name="Name" type="string"/>
-//       <column name="Location" type="string"/>
-//       <column name="Capacity" type="integer"/>
-//     </table>
-
-//     <table name="Staff">
-//       <column name="StaffID" type="integer" PK="true"/>
-//       <column name="Name" type="string"/>
-//       <column name="Role" type="string"/>
-//       <column name="ContactInfo" type="string"/>
-//     </table>
-
-//     <table name="Booking">
-//       <column name="BookingID" type="integer" PK="true"/>
-//       <column name="EventID" type="integer" FK="true"/>
-//       <column name="CustomerID" type="integer" FK="true"/>
-//       <column name="VenueID" type="integer" FK="true"/>
-//       <column name="StaffID" type="integer" FK="true"/>
-//     </table>
-//   </tables>
-// </ERD>) showing:
-//    - Entities
-//    - Attributes
-//    - Primary keys
-//    - Foreign keys
-
-// Always respond with:
-// 1. A title for the ERD in the format TITLESTART ... TITLEEND and make sure the title is not more than 4 words (derived from user requirements, if applicable)
-// 2. An optional XML code block containing the complete ERD diagram in the format XMLSTART ...xmlcontent XMLEND  (if applicable, otherwise null)
-// 3. a follow up question relevant to the databse topic or asking for feedback from the user. make sure this is not more than 2 sentences
-
-// Keep your XML simple and clean and ensure the diagram is readable.
-
-// use this precise response structure
-// `;
-
 const ERD_SYSTEM_PROMPT = `
 You are a database design expert. Your task is to generate and modify Entity Relationship Diagrams (ERDs) in XML format based on user requirements.
 
@@ -171,7 +109,7 @@ export const generateERD = async (
     const schemaMatch = assistantMessage
       ?.toString()
       .match(/XMLSTART\s*([\s\S]*?)\s*XMLEND/i);
-    const schemaCode = schemaMatch ? schemaMatch[1].trim() : null; // Extracts only the XML content
+    const schemaCode = schemaMatch ? schemaMatch[1].trim() : null;
 
     const titleMatch = assistantMessage
       ?.toString()
@@ -179,16 +117,15 @@ export const generateERD = async (
 
     const title = titleMatch ? titleMatch[1].trim() : "Database Response";
 
-    // Extracts the follow-up question (last two sentences after XML)
     let aiResponse =
       assistantMessage
         ?.toString()
-        .replace(schemaMatch?.[0] || "", "") // Remove XML section
-        .replace(titleMatch?.[0] || "", "") // Remove title section
+        .replace(schemaMatch?.[0] || "", "")
+        .replace(titleMatch?.[0] || "", "")
         .trim()
-        .split(/[.!?]\s+/) // Split into sentences
-        .slice(-2) // Get the last two sentences
-        .join(". ") + "."; // Reconstruct with punctuation
+        .split(/[.!?]\s+/)
+        .slice(-2)
+        .join(". ") + ".";
 
     if (!aiResponse) {
       aiResponse = "Database response generated based on user query.";
@@ -231,7 +168,7 @@ export const updateERD = async (
     const schemaMatch = assistantMessage
       ?.toString()
       .match(/XMLSTART\s*([\s\S]*?)\s*XMLEND/i);
-    const schemaCode = schemaMatch ? schemaMatch[1].trim() : null; // Extracts only the XML content
+    const schemaCode = schemaMatch ? schemaMatch[1].trim() : null;
 
     const titleMatch = assistantMessage
       ?.toString()
@@ -239,16 +176,15 @@ export const updateERD = async (
 
     const title = titleMatch ? titleMatch[1].trim() : "Database Response";
 
-    // Extracts the follow-up question (last two sentences after XML)
     let aiResponse =
       assistantMessage
         ?.toString()
-        .replace(schemaMatch?.[0] || "", "") // Remove XML section
-        .replace(titleMatch?.[0] || "", "") // Remove title section
+        .replace(schemaMatch?.[0] || "", "")
+        .replace(titleMatch?.[0] || "", "")
         .trim()
-        .split(/[.!?]\s+/) // Split into sentences
-        .slice(-2) // Get the last two sentences
-        .join(". ") + "."; // Reconstruct with punctuation
+        .split(/[.!?]\s+/)
+        .slice(-2)
+        .join(". ") + ".";
 
     if (!aiResponse) {
       aiResponse = "Database response generated based on user query.";

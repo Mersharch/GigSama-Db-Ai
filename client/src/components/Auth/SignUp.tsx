@@ -3,7 +3,7 @@ import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { useAppState } from "@/hooks/useAppState";
-import { signUp } from "@/services/UserService"; // Adjust the import path as necessary
+import { signUp } from "@/services/UserService";
 import { AxiosError } from "axios";
 
 export default function SignUp() {
@@ -12,23 +12,23 @@ export default function SignUp() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false); // Added loading state
+  const [loading, setLoading] = useState(false);
   const { setUser, setToken } = useAppState();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
-    setLoading(true); // Set loading to true when starting the submission
+    setLoading(true);
 
     if (!name || !email || !password || !confirmPassword) {
       setError("All fields are required.");
-      setLoading(false); // Reset loading state
+      setLoading(false);
       return;
     }
 
     if (password !== confirmPassword) {
       setError("Passwords do not match.");
-      setLoading(false); // Reset loading state
+      setLoading(false);
       return;
     }
 
@@ -47,7 +47,7 @@ export default function SignUp() {
     } catch (error) {
       setError((error as AxiosError).message);
     } finally {
-      setLoading(false); // Reset loading state after the operation
+      setLoading(false);
     }
   };
 

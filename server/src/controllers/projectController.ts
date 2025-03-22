@@ -10,7 +10,6 @@ export const generateERDController = async (
     const { message } = req.body;
     const { id } = req.params;
 
-    // Validate input
     if (!message || typeof message !== "string") {
       res.status(400).json({
         error: "Invalid input. Message is required and must be a string.",
@@ -18,12 +17,10 @@ export const generateERDController = async (
       return;
     }
 
-    // Generate the ERD using the service
     const { title, erdResponse, thread_id } = await erdService.generateERD(
       message
     );
 
-    // Create a new project with the ERD response
     const project = await projectService.createProject(
       thread_id,
       title,
@@ -31,7 +28,6 @@ export const generateERDController = async (
       erdResponse
     );
 
-    // Return the response
     res.status(201).json({
       project,
     });

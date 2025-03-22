@@ -8,12 +8,11 @@ export class UserService {
 
   async createUser(userData: any): Promise<{ user: User; token: string }> {
     try {
-      // Hash the password before saving
       const hashedPassword = await bcrypt.hash(userData.password, 10);
       userData.password = hashedPassword;
 
       const newUser = await this.userRepository.save(userData);
-      const token = generateToken(newUser); // Generate token upon user creation
+      const token = generateToken(newUser);
       return { user: newUser, token };
     } catch (error) {
       console.error("Error creating user:", error);
@@ -39,7 +38,7 @@ export class UserService {
         throw new Error("Invalid password");
       }
 
-      const token = generateToken(user); // Generate token upon successful login
+      const token = generateToken(user);
       return { user, token };
     } catch (error) {
       console.error("Error logging in user:", error);
