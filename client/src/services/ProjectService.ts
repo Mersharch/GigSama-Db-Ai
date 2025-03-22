@@ -15,9 +15,8 @@ export const createProject = async (message: string, token: string) => {
     );
     return response.data;
   } catch (error) {
-    throw new Error(
-      (error as AxiosError).response?.data?.message || "Sign up failed"
-    );
+    const axiosError = error as AxiosError<{ message?: string }>;
+    throw new Error(axiosError.response?.data?.message || "Sign up failed");
   }
 };
 
@@ -39,9 +38,8 @@ export const continueProjectConversation = async (
 
     return response.data;
   } catch (error) {
-    throw new Error(
-      (error as AxiosError).response?.data?.message || "Sign up failed"
-    );
+    const axiosError = error as AxiosError<{ message?: string }>;
+    throw new Error(axiosError.response?.data?.message || "Sign up failed");
   }
 };
 
@@ -54,9 +52,8 @@ export const projectById = async (id: string, token: string) => {
     });
     return response.data;
   } catch (error) {
-    throw new Error(
-      (error as AxiosError).response?.data?.message || "Sign up failed"
-    );
+    const axiosError = error as AxiosError<{ message?: string }>;
+    throw new Error(axiosError.response?.data?.message || "Sign up failed");
   }
 };
 
@@ -69,8 +66,7 @@ export const allProjects = async (token: string) => {
     });
     return response.data;
   } catch (error) {
-    throw new Error(
-      (error as AxiosError).response?.data?.message || "Sign up failed"
-    );
+    const axiosError = error as AxiosError<{ message?: string }>;
+    throw new Error(axiosError.response?.data?.message || "Sign up failed");
   }
 };

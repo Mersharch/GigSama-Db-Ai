@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from "axios";
 
 const API_URL = import.meta.env.VITE_API_URL; // Replace with your actual API URL
@@ -10,7 +11,7 @@ export const signUp = async (userData: {
   try {
     const response = await axios.post(`${API_URL}/users`, userData);
     return response.data;
-  } catch (error) {
+  } catch (error: any) {
     throw new Error(error.response?.data?.message || "Sign up failed");
   }
 };
@@ -22,7 +23,7 @@ export const login = async (credentials: {
   try {
     const response = await axios.post(`${API_URL}/users/login`, credentials);
     return response.data;
-  } catch (error) {
+  } catch (error: any) {
     throw new Error(error.response?.data?.message || "Login failed");
   }
 };
@@ -35,7 +36,7 @@ export const getUserDetails = async (token: string) => {
       },
     });
     return response.data;
-  } catch (error) {
+  } catch (error: any) {
     throw new Error(
       error.response?.data?.message || "Failed to fetch user details"
     );
