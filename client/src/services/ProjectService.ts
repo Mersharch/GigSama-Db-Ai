@@ -10,6 +10,7 @@ export const createProject = async (message: string, token: string) => {
       {
         headers: {
           Authorization: `Bearer ${token}`,
+          "ngrok-skip-browser-warning": true,
         },
       }
     );
@@ -32,6 +33,7 @@ export const continueProjectConversation = async (
       {
         headers: {
           Authorization: `Bearer ${token}`,
+          "ngrok-skip-browser-warning": true,
         },
       }
     );
@@ -47,6 +49,7 @@ export const projectById = async (id: string, token: string) => {
   try {
     const response = await axios.get(`${API_URL}/projects/${id}`, {
       headers: {
+        "ngrok-skip-browser-warning": true,
         Authorization: `Bearer ${token}`,
       },
     });
@@ -62,6 +65,7 @@ export const allProjects = async (token: string) => {
     const response = await axios.get(`${API_URL}/projects`, {
       headers: {
         Authorization: `Bearer ${token}`,
+        "ngrok-skip-browser-warning": true,
       },
     });
     return response.data;
