@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import Arrow from "@/assets/arrow.svg";
@@ -16,7 +16,8 @@ export default function ChatInput() {
   const { project, setProject, token } = useAppState();
   const navigate = useNavigate();
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
     setLoading(true);
     if (!newMessage.trim()) {
       alert("Message cannot be empty");
@@ -58,7 +59,10 @@ export default function ChatInput() {
           />
         </div>
       )}
-      <div className="flex items-center w-full border rounded-xl px-4 py-3 shadow-lg space-x-2">
+      <form
+        className="flex items-center w-full border rounded-xl px-4 py-3 shadow-lg space-x-2"
+        onSubmit={handleSubmit}
+      >
         <Input
           placeholder="Ask anything"
           className="placeholder:text-gray-300 text-slate-500 shadow-none focus:ring-0 focus:outline-none border-none flex-1 focus-visible:ring-0"
@@ -68,11 +72,11 @@ export default function ChatInput() {
         <Button
           variant="ghost"
           className="cursor-pointer p-0 hover:bg-transparent hover:scale-110 transition-all ease-in-out"
-          onClick={handleSubmit}
+          type="submit"
         >
           <img src={Arrow} alt="Send" className="w-6 h-6" />
         </Button>
-      </div>
+      </form>
     </div>
   );
 }

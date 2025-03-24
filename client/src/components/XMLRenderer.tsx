@@ -14,49 +14,6 @@ interface Table {
   columns: Column[];
 }
 
-// const xmlData = `
-// <ERD>
-//   <tables>
-//     <table name="Event">
-//       <column name="EventID" type="integer" PK="true"/>
-//       <column name="Name" type="string"/>
-//       <column name="Date" type="date"/>
-//       <column name="Time" type="time"/>
-//       <column name="VenueID" type="integer" FK="true"/>
-//     </table>
-
-//     <table name="Customer">
-//       <column name="CustomerID" type="integer" PK="true"/>
-//       <column name="Name" type="string"/>
-//       <column name="ContactInfo" type="string"/>
-//       <column name="PaymentDetails" type="string"/>
-//     </table>
-
-//     <table name="Venue">
-//       <column name="VenueID" type="integer" PK="true"/>
-//       <column name="Name" type="string"/>
-//       <column name="Location" type="string"/>
-//       <column name="Capacity" type="integer"/>
-//     </table>
-
-//     <table name="Staff">
-//       <column name="StaffID" type="integer" PK="true"/>
-//       <column name="Name" type="string"/>
-//       <column name="Role" type="string"/>
-//       <column name="ContactInfo" type="string"/>
-//     </table>
-
-//     <table name="Booking">
-//       <column name="BookingID" type="integer" PK="true"/>
-//       <column name="EventID" type="integer" FK="true"/>
-//       <column name="CustomerID" type="integer" FK="true"/>
-//       <column name="VenueID" type="integer" FK="true"/>
-//       <column name="StaffID" type="integer" FK="true"/>
-//     </table>
-//   </tables>
-// </ERD>
-// `;
-
 const XMLRenderer: React.FC = () => {
   const { project } = useAppState();
   const [tables, setTables] = useState<Table[]>([]);
@@ -103,32 +60,32 @@ const XMLRenderer: React.FC = () => {
   console.log(latestSchema);
 
   return (
-    <div className="p-5 flex flex-wrap justify-center gap-6">
+    <div className="p-5 flex flex-wrap justify-center gap-4">
       {latestSchema === null ? (
         ""
       ) : error ? (
-        <p className="text-red-500 text-center">{error}</p>
+        <p className="text-red-500 text-center text-sm">{error}</p>
       ) : (
         tables.map((table) => (
           <div
             key={table.name}
-            className="bg-white shadow-md rounded-lg p-4 border border-gray-300 w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 transition-all duration-300 transform hover:scale-105"
+            className="bg-white shadow-md rounded-lg p-4 border border-gray-300 w-3/4 sm:w-1/4 md:w-1/3 lg:w-1/4  transition-all duration-300 transform hover:scale-105"
           >
             <h3 className="text-lg font-bold text-gray-700 text-center">
               {table.name}
             </h3>
-            <table className="w-full mt-2 border-collapse">
+            <table className="w-full mt-2 border-collapse text-sm">
               <thead>
                 <tr className="bg-gray-100">
-                  <th className="border-b p-2 text-left text-sm">Column</th>
-                  <th className="border-b p-2 text-left text-sm">Type</th>
+                  <th className="border-b p-2 text-left text-xs">Column</th>
+                  <th className="border-b p-2 text-left text-xs">Type</th>
                 </tr>
               </thead>
               <tbody>
                 {table.columns.map((col) => (
                   <tr key={col.name} className="border-t">
                     <td
-                      className={`p-2 ${
+                      className={`p-2 text-xs ${
                         col.PK
                           ? "font-bold text-blue-600"
                           : col.FK
@@ -138,7 +95,7 @@ const XMLRenderer: React.FC = () => {
                     >
                       {col.name} {col.PK ? "(PK)" : col.FK ? "(FK)" : ""}
                     </td>
-                    <td className="p-2">{col.type}</td>
+                    <td className="p-2 text-xs">{col.type}</td>
                   </tr>
                 ))}
               </tbody>
