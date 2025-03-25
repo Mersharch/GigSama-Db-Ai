@@ -4,6 +4,10 @@
 
 This project is a web application designed to aid users in generating Entity relationship diagrams. The application leverages modern web technologies to provide a responsive and user-friendly experience.
 
+## Live Project
+
+You can view the live project at [Live Project Link](https://gig-sama-db-ai.vercel.app/).
+
 ## Technology Choices
 
 ### Frontend
@@ -23,7 +27,7 @@ This project is a web application designed to aid users in generating Entity rel
 
 - **Node.js / Express**: The backend is built using Node.js and Express, providing a RESTful API for user authentication and project management.
 
-- **Database**: [Specify the database used, e.g., MongoDB, PostgreSQL, etc.], which stores user data and project information.
+- **Database**: PostgreSQL, which stores user data and project information.
 
 ## Design Decisions
 
@@ -42,51 +46,46 @@ To set up and run the project locally, follow these steps:
 1. **Clone the Repository**:
 
    ```bash
-   git clone https://github.com/yourusername/your-repo-name.git
-   cd your-repo-name
+   git clone https://github.com/Mersharch/GigSama-Db-Ai.git
+   cd GigSama-Db-Ai
    ```
 
 2. **Install Dependencies**:
    Make sure you have Node.js installed. Then run:
 
    ```bash
+   cd client
+   npm install
+   ```
+
+   and for the server navigate to the server directory and run:
+
+   ```bash
    npm install
    ```
 
 3. **Set Up Environment Variables**:
-   Create a `.env` file in the root of the project and add the following variables:
+   Create a `.env` file in the client directory and add the following variables:
 
    ```plaintext
-   VITE_API_URL=http://your-api-url.com
+   VITE_API_URL=http://localhost:50001/api/v1
    ```
 
 4. **Run the Development Server**:
-   Start the development server with:
+   Start the development server by going into each directory i.e client and sever and running:
 
    ```bash
    npm run dev
    ```
 
 5. **Open the Application**:
-   Open your browser and navigate to `http://localhost:3000` (or the port specified in the terminal).
+   Open your browser and navigate to `http://localhost:5173` (or the port specified in the terminal).
 
-## Running Tests
+## Reasons for SQL over NoSQL for the ERD schema
 
-[If applicable, provide instructions for running tests.]
-
-## Contributing
-
-If you would like to contribute to this project, please fork the repository and submit a pull request.
-
-## License
-
-This project is licensed under the [MIT License](LICENSE).
-
-## Acknowledgments
-
-- [React](https://reactjs.org/)
-- [Vite](https://vitejs.dev/)
-- [Tailwind CSS](https://tailwindcss.com/)
-- [Axios](https://axios-http.com/)
-- [Node.js](https://nodejs.org/)
-- [Express](https://expressjs.com/)
+- **Data Integrity & Accuracy** – Relational databases enforce rules (like unique values or required fields) to keep data clean and consistent.
+- **Better Query Performance** – SQL queries run faster on structured data because of indexing and relationships.
+- **Easier Data Relationships** – It’s simpler to link related data (e.g., customers and orders) using foreign keys instead of searching inside JSON blobs.
+- **Scalability & Maintenance** – Structured tables are easier to scale, update, and optimize compared to large, unstructured JSON fields.
+- **Flexibility in Queries** – SQL makes it easy to filter, join, and aggregate data, whereas JSON queries are more complex and slower.
+- **Less Data Duplication** – With relational design, you store data efficiently by avoiding repeated values inside JSON fields.
